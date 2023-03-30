@@ -18,6 +18,8 @@ class MyApp extends StatelessWidget {
           ).copyWith(
             secondary: Colors.amber,
           ),
+          canvasColor:const Color.fromRGBO(255, 254, 229, 1),
+          fontFamily: 'Relaway'
       ),
       home: const CategoriesView(),
     );
