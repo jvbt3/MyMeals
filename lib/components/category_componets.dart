@@ -9,7 +9,7 @@ class CategoryComponets extends StatelessWidget {
 
   _onSelected(BuildContext context) {
     Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-      return CategoriesMealsView();
+      return CategoriesMealsView(category);
     }
     )
     );
