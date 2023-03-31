@@ -6,7 +6,7 @@ class CategoriesMealsView extends StatelessWidget {
 
   final Category category;
 
-  const CategoriesMealsView(this.category);
+  const CategoriesMealsView( this.category );
 
   @override
   Widget build(BuildContext context) {
