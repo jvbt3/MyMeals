@@ -4,12 +4,10 @@ import '../model/category.dart';
 
 class CategoriesMealsView extends StatelessWidget {
 
-  final Category category;
-
-  const CategoriesMealsView( this.category );
 
   @override
   Widget build(BuildContext context) {
+    final category = ModalRoute.of(context)?.settings.arguments as Category;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,

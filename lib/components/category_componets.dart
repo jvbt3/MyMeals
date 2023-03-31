@@ -1,6 +1,5 @@
 import '../model/category.dart';
 import 'package:flutter/material.dart';
-import '../view/categories_meals_view.dart';
 
 class CategoryComponets extends StatelessWidget {
   final Category category;
@@ -8,11 +7,13 @@ class CategoryComponets extends StatelessWidget {
   const CategoryComponets(this.category, {super.key});
 
   _onSelected(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-      return CategoriesMealsView(category);
-    }
-    ),
-    );
+    // Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+    //   return CategoriesMealsView();
+    // }
+    // ),
+    // );
+
+    Navigator.of(context).pushNamed('/categories-meals', arguments: category);
   }
 
   @override
