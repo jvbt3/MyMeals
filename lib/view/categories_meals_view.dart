@@ -16,7 +16,10 @@ class CategoriesMealsView extends StatelessWidget {
         title: Text(category.title),
       ),
       body: Center(
-          child: Text("Receitas por categoria ${category.id}"),),
+          child: Text(
+              "Receitas por categoria ${category.id}",
+          ),
+      ),
     );
   }
 }
