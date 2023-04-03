@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../model/category.dart';
 
 class CategoriesMealsView extends StatelessWidget {
+  const CategoriesMealsView({super.key});
+
 
 
   @override
