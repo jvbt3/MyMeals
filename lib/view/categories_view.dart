@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
+import '../components/category_components.dart';
 import '../data/dummy_data.dart';
-import '../components/category_componets.dart';
 
-class CategoriesView extends StatelessWidget {
-  const CategoriesView({super.key});
+class CategoriesScreen extends StatelessWidget {
+  const CategoriesScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: const Text("MyMeals"),
+        title: const Text('MyMeals'),
       ),
       body: GridView(
         padding: const EdgeInsets.all(15),
@@ -21,7 +20,7 @@ class CategoriesView extends StatelessWidget {
           mainAxisSpacing: 20,
         ),
         children: dummyCategories.map((cat) {
-          return CategoryComponets(cat);
+          return CategoryItem(cat);
         }).toList(),
       ),
     );

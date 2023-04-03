@@ -1,4 +1,4 @@
-class Routes {
-  static const home = '';
-  static const categoriesmelsview = '/categories-meals';
+class AppRoutes {
+  static const home = '/';
+  static const  categoriesMeals = '/categories-meals';
 }
