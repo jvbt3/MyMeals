@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mymeals/utils/routes.dart';
 import 'package:mymeals/view/meals_details_view.dart';
 import 'package:mymeals/view/not_found_view.dart';
+import 'package:mymeals/view/tabs_view.dart';
 import 'view/categories_view.dart';
 import 'view/categories_meals_view.dart';
 
@@ -32,14 +33,14 @@ class MyApp extends StatelessWidget {
             ),
       ),
       routes: {
-        AppRoutes.home: (ctx) => const CategoriesScreen(),
+        AppRoutes.home: (ctx) => const TabsView(),
         AppRoutes.categoriesMeals: (ctx) => const CategoriesMealsScreen(),
         AppRoutes.mealDetails: (ctx) => const MealDetailView(),
       },
       onUnknownRoute: (settings) {
         return MaterialPageRoute(
           builder: (_) {
-            return NotFoundView();
+            return const NotFoundView();
           },
         );
       },
