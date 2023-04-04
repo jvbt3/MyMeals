@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../components/category_components.dart';
+import '../components/drawer_components.dart';
 import '../data/dummy_data.dart';
 
 class CategoriesView extends StatelessWidget {
@@ -9,8 +10,10 @@ class CategoriesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text('MyMeals'),
       ),
+      drawer: DrawerComponents(),
       body: GridView(
         padding: const EdgeInsets.all(18),
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
