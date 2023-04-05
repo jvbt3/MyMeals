@@ -1,45 +1,87 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
+import 'package:mymeals/models/settings.dart';
+import 'package:mymeals/utils/routes.dart';
+import 'package:mymeals/view/meals_details_view.dart';
+import 'package:mymeals/view/not_found_view.dart';
+import 'package:mymeals/view/settings_view.dart';
+import 'package:mymeals/view/tabs_view.dart';
+import 'data/dummy_data.dart';
+import 'view/categories_meals_view.dart';
+import 'models/meal.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  runApp(const MyApp());
+}
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  Settings settings = Settings();
+  List<Meal> _availableMeals = dummyMeals;
+  List<Meal> _favoriteMeals = [];
+
+  void _filterMeals(Settings settings) {
+    setState(() {
+      this.settings = settings;
+      _availableMeals = dummyMeals.where((meal) {
+        final filterGluten = settings.isGlutenFree && !meal.isGlutenFree;
+        final filterLactose = settings.isLactoseFree && !meal.isLactoseFree;
+        final filterVegan = settings.isVeganFree && !meal.isVegan;
+        final filterVegetarian = settings.isVegetarianFree && !meal.isVegetarian;
+      return !filterGluten && !filterVegan && !filterLactose && !filterVegetarian;
+      }).toList();
+    });
+  }
+
+  void _toggleFavorite(Meal meal){
+    setState(() {
+      _favoriteMeals.contains(meal) ? _favoriteMeals.remove(meal) : _favoriteMeals.add(meal);
+    });
+  }
+
+  bool _isFavorite(Meal meal){
+    return _favoriteMeals.contains(meal);
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'DeliMeals',
+      debugShowCheckedModeBanner: false,
+      title: 'MyMeals',
       theme: ThemeData(
-          colorScheme: ColorScheme.fromSwatch(
-            primarySwatch: Colors.pink,
-          ).copyWith(
-            secondary: Colors.amber,
-          ),
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: Colors.pink,
+          secondary: Colors.amber,
+        ),
+        canvasColor: const Color.fromRGBO(255, 254, 229, 1),
+        fontFamily: 'Raleway',
+        textTheme: ThemeData.light().textTheme.copyWith(
+              titleLarge: const TextStyle(
+                fontSize: 20,
+                fontFamily: 'RobotoCondensed',
+              ),
+            ),
       ),
-      home: const MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('myMeals'),
-      ),
-      body: const Center(
-        child: Text('Navegar é preciso!!'),
-      ),
+      routes: {
+        AppRoutes.home: (ctx) => TabsView(_favoriteMeals),
+        AppRoutes.categoriesMeals: (ctx) =>
+            CategoriesMealsScreen(_availableMeals),
+        AppRoutes.mealDetails: (ctx) => MealDetailView(_toggleFavorite, _isFavorite),
+        AppRoutes.settingsApp: (ctx) => SettingsApp(_filterMeals, settings),
+      },
+      onUnknownRoute: (settings) {
+        return MaterialPageRoute(
+          builder: (_) {
+            return const NotFoundView();
+          },
+        );
+      },
     );
   }
 }
