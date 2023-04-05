@@ -1,18 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:mymeals/components/meal_components.dart';
 
-class FavoritesView extends StatefulWidget {
-  const FavoritesView({Key? key}) : super(key: key);
+import '../models/meal.dart';
 
-  @override
-  State<FavoritesView> createState() => _FavoritesViewState();
-}
+class FavoritesView extends StatelessWidget {
+  const FavoritesView(this.favoriteMeal, {Key? key}) : super(key: key);
 
-class _FavoritesViewState extends State<FavoritesView> {
+  final List<Meal> favoriteMeal;
+
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Container(),
-    );
+
+    if(favoriteMeal.isEmpty){
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text('Favorites'),
+        ),
+        body: Center(
+          child: Text('Ops! Nothing here.',
+          style: Theme.of(context).textTheme.titleLarge,
+          ),
+        ),
+      );
+    }else{
+      return ListView.builder(
+          itemCount: favoriteMeal.length,
+          itemBuilder: (ctx, index) {
+            return MealComponents(favoriteMeal[index]);
+          },
+      );
+    }
   }
 }
