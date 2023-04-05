@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import '../utils/routes.dart';
 
 class DrawerComponents extends StatelessWidget {
   const DrawerComponents({Key? key}) : super(key: key);
 
-  Widget _createItem(IconData icon, String label){
+  Widget _createItem(IconData icon, String label, Function() onTap) {
     return ListTile(
       leading: Icon(
         icon,
@@ -12,14 +13,15 @@ class DrawerComponents extends StatelessWidget {
       title: Text(
         label,
         style: const TextStyle(
-         fontFamily: 'RobotoCondensed',
+          fontFamily: 'RobotoCondensed',
           fontSize: 24,
           fontWeight: FontWeight.bold,
         ),
       ),
-      onTap: (){},
+      onTap: onTap,
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -28,21 +30,29 @@ class DrawerComponents extends StatelessWidget {
           Container(
             height: 96,
             width: double.infinity,
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             color: Theme.of(context).colorScheme.primary,
             alignment: Alignment.bottomCenter,
             child: const Text(
-                'MyMeals',
+              'MyMeals',
               style: TextStyle(
-              fontWeight: FontWeight.w900,
-              fontSize: 30,
+                fontWeight: FontWeight.w900,
+                fontSize: 30,
                 color: Colors.white,
               ),
             ),
           ),
           const SizedBox(height: 20),
-          _createItem(Icons.restaurant, 'Meals'),
-          _createItem(Icons.settings, 'Settings'),
+          _createItem(
+            Icons.restaurant,
+            'Meals',
+            () => Navigator.of(context).pushReplacementNamed(AppRoutes.home),
+          ),
+          _createItem(
+            Icons.settings,
+            'Settings',
+            () => Navigator.of(context).pushReplacementNamed(AppRoutes.settingsApp),
+          ),
         ],
       ),
     );
